@@ -13,7 +13,7 @@ export class ImportCommand implements Command {
 
     try {
       fileReader.read();
-      console.log(chalk.yellow(fileReader.toArray()));
+      console.log(fileReader.toArray());
     } catch (err) {
 
       if (!(err instanceof Error)) {
@@ -21,7 +21,7 @@ export class ImportCommand implements Command {
       }
 
       console.error(chalk.red(`Can't import data from file: ${filename}`));
-      console.error(`Details: ${err.message}`);
+      console.error(chalk.red(`Details: ${err.message}`));
     }
   }
 }
