@@ -1,4 +1,4 @@
-import { City, RentalAmenities, RentalType } from '../../../types/index.js';
+import { City, RentalAmenities, RentalType, Coordinates } from '../../../types/index.js';
 import {
   IsArray,
   IsBoolean,
@@ -82,5 +82,5 @@ export class UpdateOfferDto {
 
   @IsOptional()
   @IsArray({message: UpdateOfferValidationMessage.coordinates.invalidFormat})
-  public coordinates: number[];
+  public coordinates: Coordinates;
 }

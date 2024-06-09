@@ -1,5 +1,5 @@
 import { defaultClasses, getModelForClass, modelOptions, prop, Ref } from '@typegoose/typegoose';
-import { RentalAmenities, City, RentalType } from '../../types/index.js';
+import { RentalAmenities, City, RentalType, Coordinates } from '../../types/index.js';
 import { UserEntity } from '../user/index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
@@ -10,6 +10,7 @@ export interface OfferEntity extends defaultClasses.Base {}
     collection: 'offers'
   }
 })
+
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({
@@ -24,13 +25,13 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     required: true,
     type: () => String,
   })
-  public description: string;
+  public info: string;
 
   @prop({
     required: true,
     type: () => Date,
   })
-  public postDate: Date;
+  public date: Date;
 
   @prop({
     required: true,
@@ -43,7 +44,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     required: true,
     type: () => String,
   })
-  public previewImage: string;
+  public preview: string;
 
   @prop({
     required: true,
@@ -81,13 +82,13 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     required: true,
     type: () => Number,
   })
-  public roomCount: number;
+  public rooms: number;
 
   @prop({
     required: true,
     type: () => Number,
   })
-  public guestCount: number;
+  public guests: number;
 
   @prop({
     required: true,
@@ -106,7 +107,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     ref: UserEntity,
     type: () => String
   })
-  public userId: Ref<UserEntity>;
+  public renter: Ref<UserEntity>;
 
   @prop({
     type: () => Number,
@@ -116,9 +117,9 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     required: true,
-    type: () => Array<number>,
+    type: () => Object,
   })
-  public coordinates: number[];
+  public coordinates: Coordinates;
 }
 
 export const OfferModel = getModelForClass(OfferEntity);

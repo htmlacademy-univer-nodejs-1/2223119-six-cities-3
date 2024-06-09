@@ -1,9 +1,9 @@
 export enum RentalAmenities {
-  breakfast = 'Breakfast',
-  airConditioning = 'Air conditioning',
-  laptopFriendlyWorkspace = 'Laptop friendly workspace',
-  babySeat = 'Baby seat',
-  washer = 'Washer',
-  towels = 'Towels',
-  fridge = 'Fridge'
+  Breakfast = 'Breakfast',
+  AirConditioning = 'Air conditioning',
+  LaptopFriendlyWorkspace = 'Laptop friendly workspace',
+  BabySeat = 'Baby seat',
+  Washer = 'Washer',
+  Towels = 'Towels',
+  Fridge = 'Fridge'
 }

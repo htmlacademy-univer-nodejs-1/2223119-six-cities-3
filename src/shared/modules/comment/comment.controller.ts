@@ -16,6 +16,7 @@ import { fillDTO } from '../../helpers/index.js';
 import { CommentRdo } from './rdo/comment.rdo.js';
 import { CreateCommentRequest } from './types/create-comment-request.type.js';
 import { CreateCommentDto } from './dto/create-comment.dto.js';
+import { UserService } from '../user/user-service.interface.js';
 
 @injectable()
 export default class CommentController extends BaseController {
@@ -23,6 +24,7 @@ export default class CommentController extends BaseController {
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.CommentService) private readonly commentService: CommentService,
     @inject(Component.OfferService) private readonly offerService: OfferService,
+    @inject(Component.UserService) private readonly userService: UserService,
   ) {
     super(logger);
 
@@ -47,6 +49,14 @@ export default class CommentController extends BaseController {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
         `Offer with id ${body.offerId} not found.`,
+        'CommentController'
+      );
+    }
+
+    if (! await this.userService.findById(body.userId)) {
+      throw new HttpError(
+        StatusCodes.NOT_FOUND,
+        `User with id ${body.offerId} not found.`,
         'CommentController'
       );
     }

@@ -24,6 +24,14 @@ export function createOffer(offerData: string): RentalOffer {
     coordinates
   ] = offerData.replace('\n', '').split('\t');
 
+  const renter = {
+    name,
+    email,
+    avatar,
+    password,
+    type: userType as UserType
+  };
+
   return {
     title,
     info,
@@ -41,14 +49,11 @@ export function createOffer(offerData: string): RentalOffer {
     amenities: amenities
       .split(';')
       .map((amenity) => amenity as RentalAmenities),
-    renter: {
-      name,
-      email,
-      avatar,
-      password,
-      type: userType as UserType
-    },
+    renter: renter,
     countComments: 0,
-    coordinates: coordinates.split(';').map((coordinate) => Number.parseFloat(coordinate)),
+    coordinates: {
+      latitude: Number.parseFloat(coordinates.split(';')[0]),
+      longitude: Number.parseFloat(coordinates.split(';')[1])
+    }
   };
 }

@@ -10,6 +10,7 @@ import { DefaultUserService, UserModel } from '../../shared/modules/user/index.j
 import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from './command.constant.js';
 import { RentalOffer } from '../../shared/types/index.js';
 
+
 export class ImportCommand implements Command {
   private userService: UserService;
   private offerService: OfferService;
@@ -59,7 +60,7 @@ export class ImportCommand implements Command {
       guests: offer.guests,
       price: offer.price,
       amenities: [...offer.amenities],
-      userId: user.id,
+      renter: user.id,
       coordinates: offer.coordinates,
     });
 

@@ -49,8 +49,8 @@ export const CreateOfferValidationMessage = {
     invalidFormat: 'Must be an array',
     invalidAmenityFormat: 'amenity must be value from Amenity Enum'
   },
-  userId: {
-    invalidId: 'userId field must be a valid id',
+  renter: {
+    invalidId: 'renter field must be a valid id',
   },
   coordinates: {
     invalidFormat: 'Must be two numbers an array',
