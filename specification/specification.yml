@@ -479,7 +479,7 @@ components:
           minLength: 1
           maxLength: 15
           example: Dmitry
-        avatarUrl:
+        avatar:
           type: string
         type:
           $ref: '#/components/schemas/userType'
@@ -518,7 +518,7 @@ components:
       properties:
         name:
           type: string
-        avatarUrl:
+        avatar:
           type: string
         type:
           $ref: '#/components/schemas/userType'

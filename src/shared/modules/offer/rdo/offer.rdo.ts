@@ -1,5 +1,5 @@
-import {Expose, Type} from 'class-transformer';
-import {UserRdo} from '../../user/rdo/user.rdo.js';
+import { Expose, Type } from 'class-transformer';
+import { UserRdo } from '../../user/rdo/user.rdo.js';
 
 export class OfferRdo {
   @Expose()
@@ -9,16 +9,16 @@ export class OfferRdo {
   public title: string;
 
   @Expose()
-  public description: string;
+  public info: string;
 
   @Expose()
-  public postDate: string;
+  public date: string;
 
   @Expose()
   public city: string;
 
   @Expose()
-  public previewImage: string;
+  public preview: string;
 
   @Expose()
   public photos: string[];
@@ -36,10 +36,10 @@ export class OfferRdo {
   public type: string;
 
   @Expose()
-  public roomCount: number;
+  public rooms: number;
 
   @Expose()
-  public guestCount: number;
+  public guests: number;
 
   @Expose()
   public price: number;
@@ -49,14 +49,11 @@ export class OfferRdo {
 
   @Expose({ name: 'userId'})
   @Type(() => UserRdo)
-  public user: UserRdo;
+  public renter: UserRdo;
 
   @Expose()
   public commentCount: number;
 
   @Expose()
-  public latitude: number;
-
-  @Expose()
-  public longitude: number;
+  public coordinates: [number, number];
 }

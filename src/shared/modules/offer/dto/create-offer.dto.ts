@@ -1,10 +1,9 @@
-import { City, RentalType, RentalAmenities } from '../../../types/index.js';
+import { City, RentalType, RentalAmenities, Coordinates } from '../../../types/index.js';
 import {
   IsArray,
   IsBoolean,
   IsDateString,
   IsEnum,
-  IsMongoId,
   IsNumber,
   Max,
   MaxLength,
@@ -66,8 +65,8 @@ export class CreateOfferDto {
   @IsEnum(RentalAmenities, {each: true, message: CreateOfferValidationMessage.amenities.invalidAmenityFormat})
   public amenities: RentalAmenities[];
 
-  public userId: string;
+  public renter: string;
 
-  @IsArray({message: CreateOfferValidationMessage.coordinates.invalidFormat})
-  public coordinates: number[];
+  @IsArray({ message: CreateOfferValidationMessage.coordinates.invalidFormat})
+  public coordinates: Coordinates;
 }

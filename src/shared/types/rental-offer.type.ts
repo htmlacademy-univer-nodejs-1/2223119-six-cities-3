@@ -2,6 +2,8 @@ import { City } from './city.enum.js';
 import { RentalType } from './rental-type.enum.js';
 import { RentalAmenities } from './rental-amenities.enum.js';
 import { User } from './user.type.js';
+import { Coordinates } from './coordinates.type.js';
+
 
 export type RentalOffer = {
   title: string;
@@ -20,5 +22,5 @@ export type RentalOffer = {
   amenities: RentalAmenities[];
   renter: User;
   countComments: number;
-  coordinates: number[];
+  coordinates: Coordinates;
 }
