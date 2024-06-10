@@ -18,19 +18,31 @@ import {CreateOfferDto} from './dto/create-offer.dto.js';
 import {UpdateOfferDto} from './dto/update-offer.dto.js';
 import {StatusCodes} from 'http-status-codes';
 import {CommentRdo, CommentService} from '../comment/index.js';
+// import { UserService } from '../user/user-service.interface.js';
 
 @injectable()
 export class OfferController extends BaseController {
   constructor(
     @inject(Component.Logger) protected logger: Logger,
     @inject(Component.OfferService) private readonly offerService: OfferService,
-    @inject(Component.CommentService) private readonly commentService: CommentService
+    @inject(Component.CommentService) private readonly commentService: CommentService,
+    // @inject(Component.UserService) private readonly userService: UserService,
   ) {
     super(logger);
 
     this.logger.info('Register routes for CategoryController…');
+    this.addRoute({ path: '/offers', method: HttpMethod.Get, handler: this.index });
     this.addRoute({
-      path: '/:offerId',
+      path: '/offers',
+      method: HttpMethod.Post,
+      handler: this.create,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateDtoMiddleware(CreateOfferDto)
+      ]
+    });
+    this.addRoute({
+      path: '/offers/:offerId',
       method: HttpMethod.Get,
       handler: this.show,
       middlewares: [
@@ -39,7 +51,7 @@ export class OfferController extends BaseController {
       ]
     });
     this.addRoute({
-      path: '/:offerId',
+      path: '/offers/:offerId',
       method: HttpMethod.Delete,
       handler: this.delete,
       middlewares: [
@@ -49,7 +61,7 @@ export class OfferController extends BaseController {
       ]
     });
     this.addRoute({
-      path: '/:offerId',
+      path: '/offers/:offerId',
       method: HttpMethod.Patch,
       handler: this.update,
       middlewares: [
@@ -60,28 +72,12 @@ export class OfferController extends BaseController {
       ]
     });
     this.addRoute({
-      path: '/:offerId/comments',
+      path: '/premium',
       method: HttpMethod.Get,
-      handler: this.getComments,
-      middlewares: [new ValidateObjectIdMiddleware('offerId')]
+      handler: this.getPremium,
     });
     this.addRoute({
-      path: '/',
-      method: HttpMethod.Get,
-      handler: this.index
-    });
-
-    this.addRoute({
-      path: '/',
-      method: HttpMethod.Post,
-      handler: this.create,
-      middlewares: [
-        new PrivateRouteMiddleware(),
-        new ValidateDtoMiddleware(CreateOfferDto)
-      ]
-    });
-    this.addRoute({
-      path: '/favorites',
+      path: '/favorite',
       method: HttpMethod.Get,
       handler: this.getFavorites,
       middlewares: [
@@ -89,12 +85,7 @@ export class OfferController extends BaseController {
       ]
     });
     this.addRoute({
-      path: '/premium',
-      method: HttpMethod.Get,
-      handler: this.getPremium,
-    });
-    this.addRoute({
-      path: '/favorites/:offerId',
+      path: '/favorite/:offerId/:status',
       method: HttpMethod.Post,
       handler: this.addFavorite,
       middlewares: [
@@ -103,26 +94,11 @@ export class OfferController extends BaseController {
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
       ]
     });
-
     this.addRoute({
-      path: '/favorites/:offerId',
-      method: HttpMethod.Delete,
-      handler: this.removeFavorite,
-      middlewares: [
-        new PrivateRouteMiddleware(),
-        new ValidateObjectIdMiddleware('offerId'),
-        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
-      ]
-    });
-
-    this.addRoute({
-      path: '/:offerId/comments',
+      path: '/comments/:offerId',
       method: HttpMethod.Get,
       handler: this.getComments,
-      middlewares: [
-        new ValidateObjectIdMiddleware('offerId'),
-        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
-      ]
+      middlewares: [new ValidateObjectIdMiddleware('offerId')]
     });
   }
 

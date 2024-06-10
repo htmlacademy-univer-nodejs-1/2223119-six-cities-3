@@ -9,7 +9,7 @@ export class LoggedUserRdo {
   public email: string;
 
   @Expose()
-  public avatar: string;
+  public avatarUrl: string;
 
   @Expose()
   public name: string;

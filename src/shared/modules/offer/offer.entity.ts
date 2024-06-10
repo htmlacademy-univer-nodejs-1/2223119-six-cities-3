@@ -1,5 +1,5 @@
 import { defaultClasses, getModelForClass, modelOptions, prop, Ref } from '@typegoose/typegoose';
-import { RentalAmenities, City, RentalType, Coordinates } from '../../types/index.js';
+import { Good, HousingType, Location } from '../../types/index.js';
 import { UserEntity } from '../user/index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
@@ -25,70 +25,64 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     required: true,
     type: () => String,
   })
-  public info: string;
+  public description: string;
 
-  @prop({
-    required: true,
-    type: () => Date,
-  })
-  public date: Date;
-
-  @prop({
-    required: true,
-    type: () => String,
-    enum: City
-  })
-  public city: City;
+  // @prop({
+  //   required: true,
+  //   type: () => String,
+  //   enum: City
+  // })
+  // public city: City;
 
   @prop({
     required: true,
     type: () => String,
   })
-  public preview: string;
+  public previewImage: string;
 
   @prop({
     required: true,
     default: [],
     type: () => Array<string>,
   })
-  public photos: string[];
+  public images: string[];
 
   @prop({
     required: true,
     type: () => Boolean,
   })
-  public premium: boolean;
+  public isPremium: boolean;
 
-  @prop({
-    required: true,
-    type: () => Boolean,
-  })
-  public favorite: boolean;
+  // @prop({
+  //   required: true,
+  //   type: () => Boolean,
+  // })
+  // public isFavorite: boolean;
 
-  @prop({
-    required: true,
-    type: () => Number,
-  })
-  public rating: number;
+  // @prop({
+  //   required: true,
+  //   type: () => Number,
+  // })
+  // public rating: number;
 
   @prop({
     required: true,
     type: () => String,
-    enum: RentalType
+    enum: HousingType
   })
-  public type: RentalType;
+  public type: HousingType;
 
   @prop({
     required: true,
     type: () => Number,
   })
-  public rooms: number;
+  public bedrooms: number;
 
   @prop({
     required: true,
     type: () => Number,
   })
-  public guests: number;
+  public maxAdults: number;
 
   @prop({
     required: true,
@@ -100,14 +94,14 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     required: true,
     type: () => Array<string>,
   })
-  public amenities: RentalAmenities[];
+  public goods: Good[];
 
   @prop({
     required: true,
     ref: UserEntity,
     type: () => String
   })
-  public renter: Ref<UserEntity>;
+  public host: Ref<UserEntity>;
 
   @prop({
     type: () => Number,
@@ -119,7 +113,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     required: true,
     type: () => Object,
   })
-  public coordinates: Coordinates;
+  public location: Location;
 }
 
 export const OfferModel = getModelForClass(OfferEntity);

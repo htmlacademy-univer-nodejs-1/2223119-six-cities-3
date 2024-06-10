@@ -9,25 +9,25 @@ export class OfferRdo {
   public title: string;
 
   @Expose()
-  public info: string;
+  public description: string;
 
   @Expose()
-  public date: string;
+  public postDate: string;
 
   @Expose()
   public city: string;
 
   @Expose()
-  public preview: string;
+  public previewImage: string;
 
   @Expose()
-  public photos: string[];
+  public images: string[];
 
   @Expose()
-  public premium: boolean;
+  public isPremium: boolean;
 
   @Expose()
-  public favorite: boolean;
+  public isFavorite: boolean;
 
   @Expose()
   public rating: number;
@@ -36,24 +36,24 @@ export class OfferRdo {
   public type: string;
 
   @Expose()
-  public rooms: number;
+  public bedrooms: number;
 
   @Expose()
-  public guests: number;
+  public maxAdults: number;
 
   @Expose()
   public price: number;
 
   @Expose()
-  public amenities: string[];
+  public goods: string[];
 
   @Expose({ name: 'userId'})
   @Type(() => UserRdo)
-  public renter: UserRdo;
+  public host: UserRdo;
 
   @Expose()
   public commentCount: number;
 
   @Expose()
-  public coordinates: [number, number];
+  public location: [number, number];
 }

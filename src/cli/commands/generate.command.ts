@@ -9,6 +9,7 @@ export class GenerateCommand implements Command {
   private initialData: MockServerData;
 
   private async load(url: string) {
+    console.log(url);
     try {
       this.initialData = await got.get(url).json();
     } catch {

@@ -30,7 +30,7 @@ export default class CommentController extends BaseController {
 
     this.logger.info('Register routes for CommentController…');
     this.addRoute({
-      path: '/',
+      path: '/comments/:offerId',
       method: HttpMethod.Post,
       handler: this.create,
       middlewares: [
@@ -45,24 +45,24 @@ export default class CommentController extends BaseController {
     res: Response
   ): Promise<void> {
 
-    if (! await this.offerService.exists(body.offerId)) {
+    if (! await this.offerService.exists(tokenPayload.id)) {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
-        `Offer with id ${body.offerId} not found.`,
+        `Offer with id ${body.offer} not found.`,
         'CommentController'
       );
     }
 
-    if (! await this.userService.findById(body.userId)) {
+    if (! await this.userService.findById(body.user)) {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
-        `User with id ${body.offerId} not found.`,
+        `User with id ${body.offer} not found.`,
         'CommentController'
       );
     }
 
-    const comment = await this.commentService.create({ ...body, userId: tokenPayload.id });
-    await this.offerService.incCommentCount(body.offerId);
+    const comment = await this.commentService.create({ ...body, user: tokenPayload.id });
+    await this.offerService.incCommentCount(body.offer);
     this.created(res, fillDTO(CommentRdo, comment));
   }
 }

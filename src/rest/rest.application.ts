@@ -46,9 +46,9 @@ export class RestApplication {
   }
 
   private async _initControllers() {
-    this.server.use('/users', this.userController.router);
-    this.server.use('/offers', this.offerController.router);
-    this.server.use('/comments', this.commentController.router);
+    this.server.use('/', this.userController.router);
+    this.server.use('/', this.offerController.router);
+    this.server.use('/', this.commentController.router);
   }
 
   public async _initMiddleware() {
@@ -77,7 +77,7 @@ export class RestApplication {
     this.logger.info('Application initialization');
     this.logger.info(`Get value from env $PORT: ${this.config.get('PORT')}`);
 
-    this.logger.info('Init database…');
+    this.logger.info('Init database...');
     await this._initDb();
     this.logger.info('Init database completed');
 
@@ -87,13 +87,14 @@ export class RestApplication {
 
     this.logger.info('Init controllers');
     await this._initControllers();
+    this.logger.info('Controller initialization completed');
 
     this.logger.info('Init exception filters');
     await this._initExceptionFilters();
-    this.logger.info('Exception filters initialization completed');
+    this.logger.info('Exception filters initialization compleated');
 
-    this.logger.info('Try to init server…');
+    this.logger.info('Try to init server...');
     await this._initServer();
-    this.logger.info(`🚀 Server started on ${getFullServerPath(this.config.get('HOST'), this.config.get('PORT'))}`);
+    this.logger.info(`Server started on ${getFullServerPath(this.config.get('HOST'), this.config.get('PORT'))}`);
   }
 }
